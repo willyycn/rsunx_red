@@ -1,0 +1,24 @@
+#!/usr/bin/env node
+let debug = require('debug')('RSun-Demo:server');
+let fs = require('fs');
+let config = require('../config'),
+    log = require('../core/log')(module),
+    demo = require('../core/demo'),
+    https = require('https'),
+    certs = process.cwd()+"/keys/";
+
+demo.set('port',config.get('port') || 443);
+
+let options = {
+    key: fs.readFileSync(certs+'demo-srv-key.pem'),
+    cert: fs.readFileSync(certs+'demo-srv-cert.pem'),
+    ca: [ fs.readFileSync(certs+'demo-ca-cert.pem') ],
+    requestCert:        true,
+    rejectUnauthorized: true
+};
+
+https.createServer(options,demo).listen(demo.get('port'),function () {
+    debug('https Server listening on port: ' + demo.get('port'));
+    log.info('https Server listening on port: ' + demo.get('port'));
+});
+

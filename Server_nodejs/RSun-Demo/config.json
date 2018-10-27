@@ -1,0 +1,13 @@
+{
+  "port":4043,
+  "debug":1,
+  "demo":{
+    "ver":"demo_1_0_0"
+  },
+  "rsun_srv":"127.0.0.1",
+  "rsun_port":2080,
+  "kvLife":{
+    "tokenLife":15,
+    "exKeyLife":20
+  }
+}

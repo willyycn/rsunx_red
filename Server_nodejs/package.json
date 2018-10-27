@@ -1,0 +1,22 @@
+{
+  "name": "R-Sun-Demo",
+  "version": "0.0.1",
+  "private": true,
+  "author": "willyy",
+  "description": "R-Sun-Demo, for app demo",
+  "scripts": {
+    "start": "node ./bin/server"
+  },
+  "dependencies": {
+    "body-parser": "~1.18.2",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.15.5",
+    "method-override": "~2.3.10",
+    "morgan": "~1.7.0",
+    "nconf": "~0.10.x",
+    "serve-favicon": "~2.4.5",
+    "winston": "~2.4.0",
+    "redis":"~2.7.x"
+  }
+}
