@@ -9,6 +9,7 @@ let config = require('../config'),
 let http = require('http');
 let qs = require("querystring");
 let rsun_path = "/hades?cmd=";
+let api_pwd = "38148a57d6c7f32c";
 
 /**
  * 获取系统随机数
@@ -23,11 +24,11 @@ exports.getRand = function(callback){
     }
 
     let req = http.request(options,function(res){
-        res.on('data', function(d){
-            let obj = JSON.parse(d);
-            let rand = obj.rand;
-            callback(rand);
-        });
+       res.on('data', function(d){
+           let obj = JSON.parse(d);
+           let rand = obj.rand;
+           callback(rand);
+       });
     });
     req.on('error',function(e){
         callback("",e);
@@ -69,7 +70,8 @@ exports.getParam = function(callback){
 exports.getKey = function(token, passwd, callback){
     let form = {
         token : token,
-        passwd : passwd
+        passwd : passwd,
+        api_pwd : api_pwd
     };
     let bodyString = qs.stringify(form);
     let headers = {
@@ -109,9 +111,10 @@ exports.getKey = function(token, passwd, callback){
 exports.verify = function(token, sign, challenge, passwd, callback){
     let body = {
         token : token,
-        sign : sign,
+        signature : sign,
         challenge : challenge,
-        passwd : passwd
+        passwd : passwd,
+        api_pwd : api_pwd
     };
     let bodyString = qs.stringify(body);
     let headers = {
@@ -147,7 +150,8 @@ exports.verify = function(token, sign, challenge, passwd, callback){
  */
 exports.new_pair = function(ctrl, callback){
     let body = {
-        ctrl : ctrl
+        level : ctrl,
+        api_pwd : api_pwd
     };
     let bodyString = qs.stringify(body);
     let headers = {
@@ -190,9 +194,10 @@ exports.new_pair = function(ctrl, callback){
  */
 exports.cipher = function(ctrl,input,key, callback){
     let body = {
-        ctrl : ctrl,
-        input:input,
-        key:key
+        mode : ctrl,
+        text:input,
+        key:key,
+        api_pwd : api_pwd
     };
     let bodyString = qs.stringify(body);
     let headers = {
